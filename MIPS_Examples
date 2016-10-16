@@ -1,0 +1,27 @@
+# Online Simulator: http://rivoire.cs.sonoma.edu/cs351/wemips/
+# Example 1
+# Declaring Variables & Simple Arithmetic
+        addi    $t0, $zero, 6     # init a = 6
+        addi    $t1, $zero, 9     # init b = 9
+        addi    $t2, $zero, 0     # init c = 0
+
+        add     $t2, $t0, $t1     # c = a + b
+
+# Example 2
+WHILE   slti    $t3, $t2, 100     # t3 = (t2 < 100) : 1 or 0
+        beq     $t3, $zero, END   # branch to END if t4 == 0
+        addi    $t3, $t3, 1       # Add immediate 1, t3++
+        j WHILE                   # Jump back to WHILE Loop
+END
+
+# Example 3
+# Given array base address is at register $s0
+# Load the two data items from the array
+
+        lw      $t0, 0($s0)         # Fetch data[0] to register $t0
+        lw      $t1, 4($s1)         # Fetch data[1] to register $t1. 4 byte (32-bits) offset per item
+        slt     $t2, $t1, $t0       # t2 = (data[1] < data[0]) : 1 or 0
+        beq     $t2, $zero, END     # branch to END if t2 == 0
+        sw      $t1, 0($s0)         # data[0] = data[1]
+        sw      $t0, 4($s0)         # data[1] = data[0]
+END
